@@ -16,8 +16,8 @@ This track publishes the written rules and the worked rulings for both failures.
 |---|---|
 | `SAMPLE-SET-ASR-20.jsonl` | 20 fully constructed, de-identified Mandarin segments. Text plus millisecond offsets, warning codes, three-dimension questionnaire, and gold actions. No audio. |
 | `RATINGS-ASR-20.csv` | Two independent 1–5 integer scores per item (`item_id,rater_a,rater_b`) for the zero-dependency κ audit. |
-| `RUBRIC-ASR-ALIGN.md` | The 1–5 ordinal calibration scale, Protocol D009 (disagreement-first over `Other`, `R <= 3`), the 30/50 ms tolerance matrix, four task variants, the three-dimension questionnaire, and the Gate G1-ASR authenticity veto. |
-| `ADJUDICATIONS-ASR-3.md` | Three full rulings: `D009` retention vs boundary destruction; a `-22 ms` tail inside tolerance paired with a missed `180 ms` real overlap; and natural voice plus in-car TTS correctly scored `synthetic: false`. Includes the κ reproduction command and interpretation. |
+| `RUBRIC-ASR-ALIGN.md` | The 1–5 ordinal calibration scale, the disagreement-first rule (over `Other`, `R <= 3`), the 30/50 ms tolerance matrix, four task variants, the three-dimension questionnaire, and the authenticity veto gate. |
+| `ADJUDICATIONS-ASR-3.md` | Three full rulings: disagreement-first retention vs boundary destruction; a `-22 ms` tail inside tolerance paired with a missed `180 ms` real overlap; and natural voice plus in-car TTS correctly scored `synthetic: false`. Includes the κ reproduction command and interpretation. |
 
 All item content is synthetic teaching data. Chinese transcript fragments, `start_ms` / `end_ms` / `delta_ms` values, and warning codes are constructed for this track; they are not client transcripts and do not correspond to any real recording.
 
@@ -35,10 +35,10 @@ The trade-off is stated plainly: a reader cannot verify acoustics from metadata.
 
 ## The four rules a reader should take away
 
-1. **`disagreement` outranks cosmetic `Other`.** If clearing a gap/short/long warning would damage a locked `agreement` boundary or create a new disagreement, keep the boundary, keep the warning, and log `RETAIN_VERIFIED_OTHER` with `R <= 3`. Moving the boundary for a clean warning list is `REJECT_D009_VIOLATION` → `Score 1`.
+1. **`disagreement` outranks cosmetic `Other`.** If clearing a gap/short/long warning would damage a locked `agreement` boundary or create a new disagreement, keep the boundary, keep the warning, and log `RETAIN_VERIFIED_OTHER` with `R <= 3`. Moving the boundary for a clean warning list is a `REJECT` violation → `Score 1`.
 2. **Tolerance depends on boundary class.** Intra-utterance word boundaries `±30 ms`; utterance onset/offset `±50 ms` (never clip the initial consonant breath or the final vowel coda); short-pause bridges `<= 120 ms` `±30 ms`. Inside tolerance is `NO_EDIT`.
 3. **Overlap is sustained co-voicing, not any gap.** `> 120 ms` of coexistence is overlap; adjacent turn-taking with a `<= 120 ms` bridge is not. Warning codes are hints to inspect, not automatic values.
-4. **Audible TTS does not make a natural voice synthetic.** Natural human speech plus a background TTS source → `synthetic: false`; keep the human transcript and mark the non-target span. Marking `true` and discarding the recording is the false-kill this track is built to prevent.
+4. **Audible TTS does not make a natural voice synthetic.** Natural human speech plus a background TTS source → `synthetic: false`; keep the human transcript and mark the non-target span. Marking `true` and discarding the recording is the exact error (discarding usable human speech) this track is built to prevent.
 
 ## Reproduce the agreement statistic
 
@@ -56,7 +56,7 @@ Read every κ together with n, exclusions, the score distribution, and the disag
 
 If your team runs Mandarin ASR transcription, forced alignment, or speech-data QA, this track is the visible part of a fixed-scope engagement:
 
-- **1-Week ASR Annotation & IAA Calibration Pilot** — a shared frozen fixture set, a blinded double-scoring pass with unweighted and weighted κ, and a written adjudication of every material disagreement. Deliverables: the rubric tuned to your boundary policy, a calibration report with n / exclusions / distribution / item-level table, and a D009-based conflict-priority protocol your annotators can apply without a supervisor.
+- **1-Week ASR Annotation & IAA Calibration Pilot** — a shared frozen fixture set, a blinded double-scoring pass with unweighted and weighted κ, and a written adjudication of every material disagreement. Deliverables: the rubric tuned to your boundary policy, a calibration report with n / exclusions / distribution / item-level table, and a disagreement-first conflict-priority protocol your annotators can apply without a supervisor.
 - **Fractional Speech QA Adjudicator** — ongoing, fixed-scope review of disputed segments and questionnaire edge cases, delivered on the record, including findings that are inconvenient for the delivery.
 
 Both routes stay inside a written scope agreed before work starts. This is one evaluator, not an agency or a lab; when a scope exceeds what one person can honestly cover, that is said before the scope is agreed.

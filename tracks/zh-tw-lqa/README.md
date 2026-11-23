@@ -1,8 +1,8 @@
-# Track A — `en-US → zh-TW` Enterprise & Hardware Localization LQA + A/R Adjudication
+# Track A — `en-US → zh-TW` Enterprise & Hardware Localization LQA + Accept/Reject Adjudication
 
 **Public calibration sample · Wave 2 · Track A**
 
-This directory is the de-identified proof-of-work for **Track A** of a multilingual evaluation calibration hub. It demonstrates a complete, reproducible LQA (linguistic quality assurance) and A/R (adjudication / review) workflow for Traditional Chinese (`zh-TW`) localization of enterprise software and hardware UI — built for overseas and APAC LSPs, language leads, and MT/LLM evaluation teams.
+This directory is the de-identified proof-of-work for **Track A** of a multilingual evaluation calibration hub. It demonstrates a complete, reproducible LQA (linguistic quality assurance) and accept/reject adjudication workflow for Traditional Chinese (`zh-TW`) localization of enterprise software and hardware UI — built for overseas and APAC LSPs, language leads, and MT/LLM evaluation teams.
 
 The core claim this sample tests: *most `zh-TW` LQA reviewers stumble on two invisible traps — flagging legal UI bracket spacing as an error, and conflating a hard compliance lock with a translator's style preference.* The assets below let you measure that disagreement yourself with a zero-dependency Cohen's κ script.
 
